@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi novia?</title>
+    <!-- Agregar Tailwind CSS desde CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Fondo de partículas */
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Estilos para el botón "No" */
+        #noButton {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans h-screen flex items-center justify-center relative">
+
+    <!-- Contenedor de la propuesta -->
+    <div class="container text-center relative z-10">
+        <h1 class="text-4xl font-bold text-center mb-10 animate__animated animate__bounceIn animate__delay-1s">¡Hola! ¿Quieres ser mi novia?</h1>
+        
+        <!-- Contenedor de los botones "Sí" y "No" alineados y centrados -->
+        <div class="flex gap-4 justify-center items-center">
+            <!-- Botón "Sí" -->
+            <button id="yesButton" onclick="aceptarPropuesta()" class="py-3 px-6 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-300">
+                ¡Sí!
+            </button>
+            <!-- Botón "No" -->
+            <button id="noButton" onclick="moverNo()" class="py-3 px-6 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-300">
+                ¡No!
+            </button>
+        </div>
+        <div class="heart text-5xl mt-5">❤️</div>
+    </div>
+
+    <!-- Contenedor para el fondo de partículas -->
+    <div id="particles-js"></div>
+
+    <!-- Script para inicializar el fondo de partículas -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#ff69b4' /* Color rosa brillante para las partículas */
+                },
+                shape: {
+                    type: 'circle',
+                    stroke: {
+                        width: 0,
+                        color: '#ff69b4'
+                    }
+                },
+                opacity: {
+                    value: 0.7, /* Mayor opacidad para que se vean más fuertes */
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.3,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 4, /* Tamaño un poco más grande */
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 4,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#ff69b4',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 3,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'repulse'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Función para aceptar la propuesta
+        function aceptarPropuesta() {
+            // Cambiar el contenido de la página cuando se hace clic en el botón "Sí"
+            const yesButton = document.getElementById('yesButton');
+            yesButton.disabled = true; // Deshabilitar el botón "Sí" después de hacer clic
+            document.querySelector('h1').innerHTML = "¡Sí! ¡Ya eres mi novia! ❤️";
+            document.querySelector('.heart').innerHTML = "😘 Te amo";
+        }
+
+        // Función para mover el botón "No" a una posición aleatoria
+        function moverNo() {
+            var noButton = document.getElementById("noButton");
+            var randomX = Math.random() * (window.innerWidth - noButton.offsetWidth - 100); // Restamos un valor para que no se salga de la pantalla
+            var randomY = Math.random() * (window.innerHeight - noButton.offsetHeight - 100); // Lo mismo para el eje Y
+
+            noButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+    </script>
+</body>
+</html>
