@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Te Amo</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      font-family: 'Arial', sans-serif;
+      color: white;
+    }
+
+    h1 {
+      position: absolute;
+      top: 40%;
+      width: 100%;
+      text-align: center;
+      font-size: 3em;
+      color: #ff69b4;
+      z-index: 2;
+      text-shadow: 2px 2px 5px white;
+    }
+
+    .heart {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 8s linear infinite;
+      z-index: 1;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -5px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -5px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-1000px) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      animation: shoot 3s linear infinite;
+    }
+
+    @keyframes shoot {
+      0% {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(100vw, 100vh);
+        opacity: 0;
+      }
+    }
+
+    /* Fuegos Artificiales - Explosión */
+    .firework {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      opacity: 0;
+      animation: explosion 1s ease-out forwards;
+    }
+
+    @keyframes explosion {
+      0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(4) translate(var(--x), var(--y));
+        opacity: 0;
+      }
+    }
+
+    /* Lluvia de Colores */
+    .colorRain {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: hsl(0, 100%, 50%);
+      border-radius: 50%;
+      animation: rain 5s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes rain {
+      0% {
+        top: -10px;
+        opacity: 1;
+      }
+      100% {
+        top: 100vh;
+        opacity: 0;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Te Amo Mucho Mayra</h1>
+
+  <script>
+    // Corazones
+    for (let i = 0; i < 200; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.top = `${Math.random() * 100 + 100}vh`;
+      heart.style.animationDuration = `${Math.random() * 5 + 5}s`;
+      document.body.appendChild(heart);
+    }
+
+    // Estrellas fugaces
+    setInterval(() => {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = `${Math.random() * window.innerWidth}px`;
+      star.style.top = `${Math.random() * window.innerHeight / 2}px`;
+      star.style.animationDuration = `${Math.random() * 2 + 1}s`;
+      document.body.appendChild(star);
+
+      setTimeout(() => {
+        star.remove();
+      }, 3000);
+    }, 300);
+
+    // Fuegos Artificiales - Explosión
+    setInterval(() => {
+      const firework = document.createElement('div');
+      firework.classList.add('firework');
+      const xPos = Math.random() * 2 - 1; // Aleatorio entre -1 y 1
+      const yPos = Math.random() * 2 - 1; // Aleatorio entre -1 y 1
+      firework.style.left = `${Math.random() * window.innerWidth}px`;
+      firework.style.top = `${Math.random() * window.innerHeight / 2}px`;
+
+      // Dirección de la explosión
+      firework.style.setProperty('--x', `${xPos * 300}px`);
+      firework.style.setProperty('--y', `${yPos * 300}px`);
+      firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`; // Color aleatorio
+
+      document.body.appendChild(firework);
+
+      setTimeout(() => {
+        firework.remove();
+      }, 1000);
+    }, 1000);  // Menos tiempo para más explosiones
+
+    // Lluvia de Colores - Aumentar cantidad
+    setInterval(() => {
+      const colorDrop = document.createElement('div');
+      colorDrop.classList.add('colorRain');
+      colorDrop.style.left = `${Math.random() * window.innerWidth}px`;
+      colorDrop.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`; // Color aleatorio
+      document.body.appendChild(colorDrop);
+
+      setTimeout(() => {
+        colorDrop.remove();
+      }, 5000); // Las gotas caen por 5 segundos
+    }, 200);  // Aumentamos la frecuencia de las gotas
+  </script>
+</body>
+</html>
